@@ -1,1 +1,2 @@
 # PokeRPG
+A pokemon RPG
