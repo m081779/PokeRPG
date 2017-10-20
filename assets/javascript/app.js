@@ -17,12 +17,13 @@ var loopCount = 50;
 var playerName= [];
 var winCount = 0;
 var playerObj;
-var lives = 10;
+var lives = 5;
 var numberPokemon = 0;
 var startScore = 0;
 var score = 0;
 var playerExists = true;
 var worldHighScores = [];
+var topTenScores = [];
 
 var playSound = function (source) {
 	var snd  = new Audio();
@@ -87,8 +88,10 @@ $(document).on("click", "#high-score-btn", function(event){
 	playerHighScores = playerHighScores.sort(function(a, b){
 		return parseFloat(b.highScore) - parseFloat(a.highScore);
 	});
+	$("#highScoreModal").modal("toggle");	
+	$('#lossModal').modal({backdrop: 'static', keyboard: false})
 	$("#lossModal").modal("toggle");
-	$("#highScoreModal").modal("toggle");
+	
 	for (var j = 0; j<10; j++) {
 		topTenScores.push(playerHighScores[j]);
 	}
@@ -154,7 +157,7 @@ $(window).on('load',function(){
 	$("#winCount").text(winCount);
 	$("#lossCount").text(lives);
 	//added to stop user from clicking outside modal to bypass
-	$('#playerNameEntryModal').modal({backdrop: 'static', keyboard: false})
+	$('#playerNameEntryModal').modal({backdrop: 'static', keyboard: false});
     $('#playerNameEntryModal').modal('show');
     //hides error text div on load
     $('.validationTxt').hide();
@@ -205,7 +208,9 @@ $(document).on("click", "#playerNameButton",function(event){
 	//if user passes name validation this checks if user data exists in firebase.  If not
 	// it writes data, if so it retrieves it
 	else {
-		$('#thisPanel.panel').show('slow');
+		setTimeout(function () {
+			$('#thisPanel').fadeTo(3000, 1);
+		},1000*3)
 		playerName = $("#playerNameEntry").val();
     	database.ref("/Players/").once("value", function(snapshot){
     		var playerDataRef = database.ref("/Players/" + playerName +"/");
@@ -291,8 +296,8 @@ function initMap() {
         center: {lat: 35.895252, lng: -78.91968650000001},
         mapTypeId: 'satellite',
         zoom: 3,
-        disableDefaultUI: true
-        });
+        disableDefaultUI: true,
+    });
         window.onload = setMarkers(map);
 };
 
@@ -315,6 +320,7 @@ function setMarkers(map) {
 		});
 		// add click listener to each marker
 		marker.addListener('click', function(event) {
+			console.log(this);
 		   	playSound('fightStart');
 		   	foeURL = this.icon.url;
 		   	//removes the marker when clicked.  Gives player only one chance
