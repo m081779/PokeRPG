@@ -7,6 +7,7 @@
 ## Technologies used:
 * HTML5
 * CSS3 (including CSS animations and transitions)
+* Bootstrap 3
 * Javascript
 * jQuery
 * jQuery UI
@@ -15,6 +16,7 @@
 * API's:
 	* PokeAPI
 	* Google Maps API
+* Google Fonts
 
 
 
