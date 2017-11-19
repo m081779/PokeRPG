@@ -1,7 +1,8 @@
 # Poke-Map Challenge
-##A pokemon RPG
 
-To view a live version of this game, [click here.](https://m081779.github.io/PokeRPG/)
+
+## To view a live version of this game, [click here.](https://m081779.github.io/PokeRPG/)
+### (Make sure your speakers are turned on!)
 
 ## Technologies used:
 * HTML5
